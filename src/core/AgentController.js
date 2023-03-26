@@ -25,7 +25,9 @@ class AgentController {
             throw 'AgentIDAlreadyExists';
         } else {
             this.agents[agent.getID()] = agent;
-            this.data.states[agent.getID()] = state0;
+            let agentStates = [];
+            agentStates.push(state0)
+            this.data.states[agent.getID()] = agentStates;
             //TODO conver state0 to an inmutable object
             agent.setup(JSON.parse(JSON.stringify(state0)));
         }

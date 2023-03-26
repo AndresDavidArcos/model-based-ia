@@ -14,7 +14,9 @@ myProblem.solve([
         console.log("agent: " + agentID);
         console.log(result.actions);
         let world = JSON.parse(JSON.stringify(result.data.world));
-        let agentState = result.data.states[agentID];
+        let agentStates = result.data.states[agentID];
+        let length = agentStates.length;
+        let agentState = agentStates[length-1];
         world[agentState.raton.y][agentState.raton.x] = "X"
         status = 1;
         for (let line of world) {

@@ -36,7 +36,10 @@ class CleanerProblem extends Problem {
      */
     update(data, action, agentID) {
         let map = data.world;
-        let agentState = data.states[agentID];
+        let agentStates = data.states[agentID];
+        let length = agentStates.length;
+        let agentState = agentStates[length-1];
+        let nextAgentState = {...agentState}
         if (action == "UP") {
             agentState.raton.y -= 1;
         }
@@ -68,9 +71,12 @@ class CleanerProblem extends Problem {
      */
     perceptionForAgent(data, agentID) {
         let map = data.world;
-        let agentState = data.states[agentID];
-        let x = agentState.raton.x;
-        let y = agentState.raton.y;
+        let agentStates = data.states[agentID];
+        let agentStatesLength = agentStates.length;
+        let x = agentStates[agentStatesLength-1].raton.x;
+        let y = agentStates[agentStatesLength-1].raton.y;
+        let qx = agentStates[agentStatesLength-1].queso.x;
+        let qy = agentStates[agentStatesLength-1].queso.y;
         let result = [];
         //LEFT
         result.push(x > 0 ? map[y][x - 1] : 1);
@@ -87,10 +93,11 @@ class CleanerProblem extends Problem {
         result.push(Math.abs(map[y][x]));
 
         // Pasar la información sobre donde está el queso
-        result.push(agentState.raton.x)
-        result.push(agentState.raton.y)
-        result.push(agentState.queso.x)
-        result.push(agentState.queso.y)
+        result.push(x)
+        result.push(y)
+        result.push(qx)
+        result.push(qy)
+        result.push(agentStates)
 
         return result;
     }
