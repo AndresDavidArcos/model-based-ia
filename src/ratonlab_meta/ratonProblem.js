@@ -38,29 +38,33 @@ class CleanerProblem extends Problem {
         let map = data.world;
         let agentStates = data.states[agentID];
         let length = agentStates.length;
-        let agentState = agentStates[length-1];
-        let nextAgentState = {...agentState}
+        let agentState = agentStates[length - 1];
+        let nextAgentState = { ...agentState }; // Clonamos el objeto anterior
+      
         if (action == "UP") {
-            agentState.raton.y -= 1;
+          nextAgentState = { ...nextAgentState, raton: { ...nextAgentState.raton, y: nextAgentState.raton.y - 1 } }; // Sobrescribimos solo la propiedad 'y' de 'raton'
         }
         if (action == "DOWN") {
-            agentState.raton.y += 1;
+          nextAgentState = { ...nextAgentState, raton: { ...nextAgentState.raton, y: nextAgentState.raton.y + 1 } }; // Sobrescribimos solo la propiedad 'y' de 'raton'
         }
         if (action == "LEFT") {
-            agentState.raton.x -= 1;
+          nextAgentState = { ...nextAgentState, raton: { ...nextAgentState.raton, x: nextAgentState.raton.x - 1 } }; // Sobrescribimos solo la propiedad 'x' de 'raton'
         }
         if (action == "RIGHT") {
-            agentState.raton.x += 1;
+          nextAgentState = { ...nextAgentState, raton: { ...nextAgentState.raton, x: nextAgentState.raton.x + 1 } }; // Sobrescribimos solo la propiedad 'x' de 'raton'
         }
         if (action == "TAKE") {
-            map[agentState.raton.y][agentState.raton.x] = 0;
+          map[agentState.raton.y][agentState.raton.x] = 0;
         }
         if (!data.iterations) {
-            data.iterations = 1;
+          data.iterations = 1;
         } else {
-            data.iterations++;
+          data.iterations++;
         }
-    }
+      
+        agentStates.push(nextAgentState); // Agregamos la copia modificada al array
+      }
+      
 
     /**
      * Gives the world representation for the agent at the current stage.

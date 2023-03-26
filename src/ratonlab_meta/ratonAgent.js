@@ -39,9 +39,7 @@ class CleanerAgent extends Agent {
      * In this case, the state is just obtained as the join of the perceptions
      */
     send() {
-        console.log("MI PERCEPCION: ",this.perception)
         const [LEFT, UP, RIGTH, DOWN, SMELL, ratonx, ratony, qx, qy, statesHistory] = this.perception;
-        console.log("aiuda", statesHistory)
         let distX = Math.abs(qx - ratonx);
         let distY = Math.abs(qy - ratony);
         if(distX === 0 && distY === 0){
@@ -77,7 +75,7 @@ class CleanerAgent extends Agent {
                           if(!this.positionVisited(this.nextPosition({x: ratonx,y: ratony}, "DOWN"), statesHistory))
                             return "DOWN";
                         }                        
-                      }                
+                      }     
         
         let viewKey = [LEFT, UP, RIGTH, DOWN, SMELL].join();
 
@@ -102,23 +100,19 @@ class CleanerAgent extends Agent {
             case "RIGHT":
                 return { x: x + 1, y: y };
             case "UP":
-                return { x: x, y: y + 1 };
-            case "DOWN":
                 return { x: x, y: y - 1 };
+            case "DOWN":
+                return { x: x, y: y + 1 };
             default:
                 break;
         }
     }
 
     positionVisited(position, statesHistory){
-        console.log("CHUPENLA perros", statesHistory)
-
         let x = position.x;
         let y = position.y;
         for(const state of statesHistory){
-            console.log("explicandole a js con plastilina", state, "posi", position)
             if(x === state.raton.x && y === state.raton.y){
-                console.log("CHUPENLA")
                 return true;
             }
         }
